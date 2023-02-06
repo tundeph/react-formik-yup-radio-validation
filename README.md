@@ -4,6 +4,6 @@ How to Validate Radio Buttons with Formik and Yup in React
 There are 2 methods contained in the files in the repository:
 </p>
 <p>
-  -useFormik example
-  -useField example
+  -useFormik example <br/>
+  -useField example <br/>
   </p>
