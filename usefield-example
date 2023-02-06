@@ -1,0 +1,66 @@
+//This is used when you want to have custom field components
+
+import React from "react";
+import { useField, Form, Formik } from "formik";
+import * as Yup from "yup";
+
+//create your input component
+//in this case im defining the radio input
+//this component can be contained in another file
+const InputField = ({ name, label }) => {
+  return (
+    <label>
+      <input type="radio" name={name} id="radioOption1" value="Male" />
+      {label}
+    </label>
+  );
+};
+
+// create a custom FieldSet component that uses the useField hook
+//this component can be contained in another file
+const FieldSet = ({ InputField, label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <>
+      <label>
+        {label}
+        {/* make sure the radios are contained ina fieldset */}
+        <fieldset {...field} {...props}>
+          <InputField name={props.name} label="Male" />
+          <InputField name={props.name} label="Female" />
+        </fieldset>
+      </label>
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
+
+// create the main component
+export default function UseFieldExample() {
+  return (
+    <div>
+      <h3> useField() Example </h3>
+      <Formik
+        initialValues={{
+          name: ""
+        }}
+        validationSchema={Yup.object().shape({
+          name: Yup.string().required("required")
+        })}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      >
+        {(props) => (
+          <Form>
+            <FieldSet InputField={InputField} name="name" />
+            {/* the name prop of the Fieldset should be same as the name props on the radio inputs*/}
+            <button type="submit">Submit</button>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+}
