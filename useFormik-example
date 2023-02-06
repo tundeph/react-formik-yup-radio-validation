@@ -4,7 +4,7 @@ import { useFormik, Formik, Form } from "formik";
 import * as Yup from "yup";
 
 export default function UseFormikExample() {
-  // define the inintial values and validation using useFormik
+  // define the initial values and validation using useFormik
   const formik = useFormik({
     initialValues: {
       radioGroup: ""
